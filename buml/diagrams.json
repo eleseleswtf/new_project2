@@ -1,0 +1,1285 @@
+{
+  "ClassDiagram": [
+    {
+      "id": "8d82f54c-73c0-4c4a-8e98-70b60d4005e6",
+      "title": "Class Diagram",
+      "model": {
+        "version": "3.0.0",
+        "type": "ClassDiagram",
+        "size": {
+          "width": 626,
+          "height": 664
+        },
+        "interactive": {
+          "elements": {},
+          "relationships": {}
+        },
+        "elements": {
+          "class_58seo5nao_mocu1r36_gwj": {
+            "id": "class_58seo5nao_mocu1r36_gwj",
+            "name": "ParkingPlace",
+            "type": "Class",
+            "owner": null,
+            "bounds": {
+              "x": -265,
+              "y": 73,
+              "width": 390,
+              "height": 165
+            },
+            "attributes": [
+              "attr_8irzmodn6_mocu1r36_f4j",
+              "attr_z1sy2gxan_mocu1r36_1of",
+              "attr_mf2zk4eai_mocu1r36_2f3",
+              "attr_7ose55zzl_mocu1r36_t7y"
+            ],
+            "methods": [
+              "method_rvhw9wsa2_mocu1r36_niy"
+            ]
+          },
+          "attr_8irzmodn6_mocu1r36_f4j": {
+            "id": "attr_8irzmodn6_mocu1r36_f4j",
+            "name": "placeId",
+            "type": "ClassAttribute",
+            "owner": "class_58seo5nao_mocu1r36_gwj",
+            "bounds": {
+              "x": -264.5,
+              "y": 113.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "str",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          },
+          "attr_z1sy2gxan_mocu1r36_1of": {
+            "id": "attr_z1sy2gxan_mocu1r36_1of",
+            "name": "isFree",
+            "type": "ClassAttribute",
+            "owner": "class_58seo5nao_mocu1r36_gwj",
+            "bounds": {
+              "x": -264.5,
+              "y": 138.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "bool",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false,
+            "defaultValue": "true"
+          },
+          "attr_mf2zk4eai_mocu1r36_2f3": {
+            "id": "attr_mf2zk4eai_mocu1r36_2f3",
+            "name": "lastUpdated",
+            "type": "ClassAttribute",
+            "owner": "class_58seo5nao_mocu1r36_gwj",
+            "bounds": {
+              "x": -264.5,
+              "y": 163.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "date",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          },
+          "attr_7ose55zzl_mocu1r36_t7y": {
+            "id": "attr_7ose55zzl_mocu1r36_t7y",
+            "name": "locationDescription",
+            "type": "ClassAttribute",
+            "owner": "class_58seo5nao_mocu1r36_gwj",
+            "bounds": {
+              "x": -264.5,
+              "y": 188.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "str",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": true,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          },
+          "method_rvhw9wsa2_mocu1r36_niy": {
+            "id": "method_rvhw9wsa2_mocu1r36_niy",
+            "name": "updateAvailability(freeStatus: bool)",
+            "type": "ClassMethod",
+            "owner": "class_58seo5nao_mocu1r36_gwj",
+            "bounds": {
+              "x": -264.5,
+              "y": 213.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "public",
+            "attributeType": "any",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          },
+          "class_lkd9lx6es_mocu1r37_168": {
+            "id": "class_lkd9lx6es_mocu1r37_168",
+            "name": "ParkingAvailability",
+            "type": "Class",
+            "owner": null,
+            "bounds": {
+              "x": -293,
+              "y": -312,
+              "width": 390,
+              "height": 165
+            },
+            "attributes": [
+              "attr_ol4uz7051_mocu1r37_50d",
+              "attr_sshlsokux_mocu1r37_oqk",
+              "attr_o1uzeapcp_mocu1r37_lk4",
+              "attr_0z3zcr10q_mocu1r37_r6r"
+            ],
+            "methods": [
+              "method_3xm4bkznq_mocu1r37_fbn"
+            ]
+          },
+          "attr_ol4uz7051_mocu1r37_50d": {
+            "id": "attr_ol4uz7051_mocu1r37_50d",
+            "name": "availabilityId",
+            "type": "ClassAttribute",
+            "owner": "class_lkd9lx6es_mocu1r37_168",
+            "bounds": {
+              "x": -292.5,
+              "y": -271.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "str",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          },
+          "attr_sshlsokux_mocu1r37_oqk": {
+            "id": "attr_sshlsokux_mocu1r37_oqk",
+            "name": "checkedAt",
+            "type": "ClassAttribute",
+            "owner": "class_lkd9lx6es_mocu1r37_168",
+            "bounds": {
+              "x": -292.5,
+              "y": -246.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "date",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          },
+          "attr_o1uzeapcp_mocu1r37_lk4": {
+            "id": "attr_o1uzeapcp_mocu1r37_lk4",
+            "name": "anyPlaceFree",
+            "type": "ClassAttribute",
+            "owner": "class_lkd9lx6es_mocu1r37_168",
+            "bounds": {
+              "x": -292.5,
+              "y": -221.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "bool",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": true,
+            "isId": false,
+            "isExternalId": false
+          },
+          "attr_0z3zcr10q_mocu1r37_r6r": {
+            "id": "attr_0z3zcr10q_mocu1r37_r6r",
+            "name": "bothPlacesFree",
+            "type": "ClassAttribute",
+            "owner": "class_lkd9lx6es_mocu1r37_168",
+            "bounds": {
+              "x": -292.5,
+              "y": -196.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "private",
+            "attributeType": "bool",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": true,
+            "isId": false,
+            "isExternalId": false
+          },
+          "method_3xm4bkznq_mocu1r37_fbn": {
+            "id": "method_3xm4bkznq_mocu1r37_fbn",
+            "name": "refreshAvailabilityStatus()",
+            "type": "ClassMethod",
+            "owner": "class_lkd9lx6es_mocu1r37_168",
+            "bounds": {
+              "x": -292.5,
+              "y": -171.5,
+              "width": 389,
+              "height": 25
+            },
+            "code": "",
+            "visibility": "public",
+            "attributeType": "any",
+            "implementationType": "none",
+            "stateMachineId": "",
+            "quantumCircuitId": "",
+            "isOptional": false,
+            "isDerived": false,
+            "isId": false,
+            "isExternalId": false
+          }
+        },
+        "relationships": {
+          "rel_kdxb5dlah_mocu1r37_xe1": {
+            "id": "rel_kdxb5dlah_mocu1r37_xe1",
+            "name": "hasPlaces",
+            "type": "ClassAggregation",
+            "owner": null,
+            "bounds": {
+              "x": -162.82500457763672,
+              "y": -147,
+              "width": 92.72500514984131,
+              "height": 220
+            },
+            "path": [
+              {
+                "x": 78.82500457763672,
+                "y": 0
+              },
+              {
+                "x": 78.82500457763672,
+                "y": 220
+              }
+            ],
+            "source": {
+              "direction": "Down",
+              "element": "class_lkd9lx6es_mocu1r37_168",
+              "multiplicity": "1",
+              "role": "",
+              "bounds": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            "target": {
+              "direction": "Up",
+              "element": "class_58seo5nao_mocu1r36_gwj",
+              "multiplicity": "2",
+              "role": "hasPlaces",
+              "bounds": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            "isManuallyLayouted": false
+          }
+        },
+        "assessments": {}
+      },
+      "lastUpdate": "2026-04-24T11:55:52.769Z"
+    }
+  ],
+  "GUINoCodeDiagram": [
+    {
+      "id": "9c91e813-8bc1-470f-93f2-0cc87531a051",
+      "title": "GUI Diagram",
+      "model": {
+        "pages": [
+          {
+            "name": "ParkingPlace",
+            "frames": [
+              {
+                "component": {
+                  "type": "wrapper",
+                  "stylable": [
+                    "background",
+                    "background-color",
+                    "background-image",
+                    "background-repeat",
+                    "background-attachment",
+                    "background-position",
+                    "background-size"
+                  ],
+                  "components": [
+                    {
+                      "attributes": {
+                        "id": "ijbw3"
+                      },
+                      "components": [
+                        {
+                          "tagName": "nav",
+                          "attributes": {
+                            "id": "isqnf"
+                          },
+                          "components": [
+                            {
+                              "tagName": "h2",
+                              "type": "text",
+                              "attributes": {
+                                "id": "i2lao"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "BESSER"
+                                }
+                              ]
+                            },
+                            {
+                              "attributes": {
+                                "id": "itj6z"
+                              },
+                              "components": [
+                                {
+                                  "type": "link",
+                                  "attributes": {
+                                    "href": "/parkingplace",
+                                    "id": "iodlw"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "textnode",
+                                      "content": "ParkingPlace"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "link",
+                                  "attributes": {
+                                    "href": "/parkingavailability",
+                                    "id": "i6bvu"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "textnode",
+                                      "content": "ParkingAvailability"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "attributes": {
+                                "id": "i0qtj"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "\u00a9 2026 BESSER. All rights reserved."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tagName": "main",
+                          "attributes": {
+                            "id": "ie9l8"
+                          },
+                          "components": [
+                            {
+                              "tagName": "h1",
+                              "type": "text",
+                              "attributes": {
+                                "id": "iffgi"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "ParkingPlace"
+                                }
+                              ]
+                            },
+                            {
+                              "tagName": "p",
+                              "type": "text",
+                              "attributes": {
+                                "id": "i2oab"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "Manage ParkingPlace data"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "table",
+                              "style": "",
+                              "classes": [
+                                "has-data-binding"
+                              ],
+                              "attributes": {
+                                "chart-color": "#2c3e50",
+                                "chart-title": "ParkingPlace List",
+                                "data-source": "class_58seo5nao_mocu1r36_gwj",
+                                "show-header": "true",
+                                "striped-rows": "false",
+                                "show-pagination": "true",
+                                "rows-per-page": "5",
+                                "action-buttons": "true",
+                                "columns": [
+                                  {
+                                    "field": "placeId",
+                                    "label": "PlaceId",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "isFree",
+                                    "label": "IsFree",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "lastUpdated",
+                                    "label": "LastUpdated",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "locationDescription",
+                                    "label": "LocationDescription",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "ParkingAvailability",
+                                    "label": "ParkingAvailability",
+                                    "columnType": "lookup",
+                                    "lookupEntity": "class_lkd9lx6es_mocu1r37_168",
+                                    "lookupField": "availabilityId",
+                                    "_expanded": false
+                                  }
+                                ],
+                                "id": "table-parkingplace-0",
+                                "filter": ""
+                              },
+                              "chart-title": "ParkingPlace List",
+                              "data-source": "class_58seo5nao_mocu1r36_gwj",
+                              "show-header": "true",
+                              "striped-rows": "false",
+                              "show-pagination": "true",
+                              "action-buttons": "true",
+                              "rows-per-page": "5",
+                              "filter": "",
+                              "columns": [
+                                {
+                                  "field": "placeId",
+                                  "label": "PlaceId",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "isFree",
+                                  "label": "IsFree",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "lastUpdated",
+                                  "label": "LastUpdated",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "locationDescription",
+                                  "label": "LocationDescription",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "ParkingAvailability",
+                                  "label": "ParkingAvailability",
+                                  "columnType": "lookup",
+                                  "lookupEntity": "class_lkd9lx6es_mocu1r37_168",
+                                  "lookupField": "availabilityId",
+                                  "_expanded": false
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "type": "tbody",
+                                  "draggable": [
+                                    "table"
+                                  ],
+                                  "droppable": [
+                                    "tr"
+                                  ],
+                                  "components": [
+                                    {
+                                      "type": "row",
+                                      "draggable": [
+                                        "thead",
+                                        "tbody",
+                                        "tfoot"
+                                      ],
+                                      "droppable": [
+                                        "th",
+                                        "td"
+                                      ],
+                                      "classes": [
+                                        "row"
+                                      ],
+                                      "components": [
+                                        {
+                                          "type": "cell",
+                                          "draggable": [
+                                            "tr"
+                                          ],
+                                          "classes": [
+                                            "cell"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "chart-color": "#2c3e50"
+                            },
+                            {
+                              "attributes": {
+                                "id": "i9tbg"
+                              },
+                              "components": [
+                                {
+                                  "type": "action-button",
+                                  "style": "",
+                                  "classes": [
+                                    "action-button-component"
+                                  ],
+                                  "attributes": {
+                                    "type": "button",
+                                    "data-button-label": "updateAvailability",
+                                    "data-action-type": "run-method",
+                                    "data-method-class": "class_58seo5nao_mocu1r36_gwj",
+                                    "data-method": "method_rvhw9wsa2_mocu1r36_niy",
+                                    "data-instance-source": "table-parkingplace-0",
+                                    "id": "i9ra6"
+                                  },
+                                  "button-label": "updateAvailability",
+                                  "action-type": "run-method",
+                                  "method-class": "class_58seo5nao_mocu1r36_gwj",
+                                  "method": "method_rvhw9wsa2_mocu1r36_niy",
+                                  "instance-source": "table-parkingplace-0",
+                                  "components": [
+                                    {
+                                      "type": "textnode",
+                                      "content": "updateAvailability"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "head": {
+                    "type": "head"
+                  },
+                  "docEl": {
+                    "tagName": "html"
+                  }
+                },
+                "id": "kgqrQC4BwFfBi33M"
+              }
+            ],
+            "id": "page-parkingplace-0",
+            "route_path": "/parkingplace"
+          },
+          {
+            "name": "ParkingAvailability",
+            "frames": [
+              {
+                "component": {
+                  "type": "wrapper",
+                  "stylable": [
+                    "background",
+                    "background-color",
+                    "background-image",
+                    "background-repeat",
+                    "background-attachment",
+                    "background-position",
+                    "background-size"
+                  ],
+                  "components": [
+                    {
+                      "attributes": {
+                        "id": "i78u7"
+                      },
+                      "components": [
+                        {
+                          "tagName": "nav",
+                          "attributes": {
+                            "id": "ijz03"
+                          },
+                          "components": [
+                            {
+                              "tagName": "h2",
+                              "type": "text",
+                              "attributes": {
+                                "id": "ixz7h"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "BESSER"
+                                }
+                              ]
+                            },
+                            {
+                              "attributes": {
+                                "id": "i06p5"
+                              },
+                              "components": [
+                                {
+                                  "type": "link",
+                                  "attributes": {
+                                    "href": "/parkingplace",
+                                    "id": "i8aeh"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "textnode",
+                                      "content": "ParkingPlace"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "link",
+                                  "attributes": {
+                                    "href": "/parkingavailability",
+                                    "id": "ilvn9"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "textnode",
+                                      "content": "ParkingAvailability"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "attributes": {
+                                "id": "idpfh"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "\u00a9 2026 BESSER. All rights reserved."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tagName": "main",
+                          "attributes": {
+                            "id": "igte8"
+                          },
+                          "components": [
+                            {
+                              "tagName": "h1",
+                              "type": "text",
+                              "attributes": {
+                                "id": "i5xjw"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "ParkingAvailability"
+                                }
+                              ]
+                            },
+                            {
+                              "tagName": "p",
+                              "type": "text",
+                              "attributes": {
+                                "id": "iyt2h"
+                              },
+                              "components": [
+                                {
+                                  "type": "textnode",
+                                  "content": "Manage ParkingAvailability data"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "table",
+                              "style": "",
+                              "classes": [
+                                "has-data-binding"
+                              ],
+                              "attributes": {
+                                "chart-color": "#2c3e50",
+                                "chart-title": "ParkingAvailability List",
+                                "data-source": "class_lkd9lx6es_mocu1r37_168",
+                                "show-header": "true",
+                                "striped-rows": "false",
+                                "show-pagination": "true",
+                                "rows-per-page": "5",
+                                "action-buttons": "true",
+                                "columns": [
+                                  {
+                                    "field": "availabilityId",
+                                    "label": "AvailabilityId",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "checkedAt",
+                                    "label": "CheckedAt",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "anyPlaceFree",
+                                    "label": "AnyPlaceFree",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "bothPlacesFree",
+                                    "label": "BothPlacesFree",
+                                    "columnType": "field",
+                                    "_expanded": false
+                                  },
+                                  {
+                                    "field": "hasPlaces",
+                                    "label": "HasPlaces",
+                                    "columnType": "lookup",
+                                    "lookupEntity": "class_58seo5nao_mocu1r36_gwj",
+                                    "lookupField": "placeId",
+                                    "_expanded": false
+                                  }
+                                ],
+                                "id": "table-parkingavailability-1",
+                                "filter": ""
+                              },
+                              "chart-title": "ParkingAvailability List",
+                              "data-source": "class_lkd9lx6es_mocu1r37_168",
+                              "show-header": "true",
+                              "striped-rows": "false",
+                              "show-pagination": "true",
+                              "action-buttons": "true",
+                              "rows-per-page": "5",
+                              "filter": "",
+                              "columns": [
+                                {
+                                  "field": "availabilityId",
+                                  "label": "AvailabilityId",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "checkedAt",
+                                  "label": "CheckedAt",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "anyPlaceFree",
+                                  "label": "AnyPlaceFree",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "bothPlacesFree",
+                                  "label": "BothPlacesFree",
+                                  "columnType": "field",
+                                  "_expanded": false
+                                },
+                                {
+                                  "field": "hasPlaces",
+                                  "label": "HasPlaces",
+                                  "columnType": "lookup",
+                                  "lookupEntity": "class_58seo5nao_mocu1r36_gwj",
+                                  "lookupField": "placeId",
+                                  "_expanded": false
+                                }
+                              ],
+                              "components": [
+                                {
+                                  "type": "tbody",
+                                  "draggable": [
+                                    "table"
+                                  ],
+                                  "droppable": [
+                                    "tr"
+                                  ],
+                                  "components": [
+                                    {
+                                      "type": "row",
+                                      "draggable": [
+                                        "thead",
+                                        "tbody",
+                                        "tfoot"
+                                      ],
+                                      "droppable": [
+                                        "th",
+                                        "td"
+                                      ],
+                                      "classes": [
+                                        "row"
+                                      ],
+                                      "components": [
+                                        {
+                                          "type": "cell",
+                                          "draggable": [
+                                            "tr"
+                                          ],
+                                          "classes": [
+                                            "cell"
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "chart-color": "#2c3e50"
+                            },
+                            {
+                              "attributes": {
+                                "id": "ibho2"
+                              },
+                              "components": [
+                                {
+                                  "type": "action-button",
+                                  "content": "refreshAvailabilityStatus",
+                                  "style": "",
+                                  "classes": [
+                                    "action-button-component"
+                                  ],
+                                  "attributes": {
+                                    "type": "button",
+                                    "data-button-label": "refreshAvailabilityStatus",
+                                    "data-action-type": "run-method",
+                                    "data-method-class": "class_lkd9lx6es_mocu1r37_168",
+                                    "data-method": "method_3xm4bkznq_mocu1r37_fbn",
+                                    "data-instance-source": "table-parkingavailability-1",
+                                    "id": "iscfn",
+                                    "data-confirmation": "false",
+                                    "data-confirmation-message": "Are you sure?",
+                                    "button-label": "refreshAvailabilityStatus",
+                                    "data-method-name": "method_3xm4bkznq_mocu1r37_fbn"
+                                  },
+                                  "button-label": "refreshAvailabilityStatus",
+                                  "action-type": "run-method",
+                                  "method-class": "class_lkd9lx6es_mocu1r37_168",
+                                  "method": "method_3xm4bkznq_mocu1r37_fbn",
+                                  "instance-source": "table-parkingavailability-1",
+                                  "components": [
+                                    {
+                                      "type": "textnode",
+                                      "content": "refreshAvailabilityStatus"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "head": {
+                    "type": "head"
+                  },
+                  "docEl": {
+                    "tagName": "html"
+                  }
+                },
+                "id": "KcpynjjWtrosxlfS"
+              }
+            ],
+            "id": "page-parkingavailability-1",
+            "route_path": "/parkingavailability"
+          }
+        ],
+        "styles": [
+          {
+            "selectors": [
+              "#i2lao"
+            ],
+            "style": {
+              "margin-top": "0",
+              "font-size": "24px",
+              "margin-bottom": "30px",
+              "font-weight": "bold"
+            }
+          },
+          {
+            "selectors": [
+              "#iodlw"
+            ],
+            "style": {
+              "color": "white",
+              "text-decoration": "none",
+              "padding": "10px 15px",
+              "display": "block",
+              "background": "rgba(255,255,255,0.2)",
+              "border-radius": "4px",
+              "margin-bottom": "5px"
+            }
+          },
+          {
+            "selectors": [
+              "#i6bvu"
+            ],
+            "style": {
+              "color": "white",
+              "text-decoration": "none",
+              "padding": "10px 15px",
+              "display": "block",
+              "background": "transparent",
+              "border-radius": "4px",
+              "margin-bottom": "5px"
+            }
+          },
+          {
+            "selectors": [
+              "#itj6z"
+            ],
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "flex": "1"
+            }
+          },
+          {
+            "selectors": [
+              "#i0qtj"
+            ],
+            "style": {
+              "margin-top": "auto",
+              "padding-top": "20px",
+              "border-top": "1px solid rgba(255,255,255,0.2)",
+              "font-size": "11px",
+              "opacity": "0.8",
+              "text-align": "center"
+            }
+          },
+          {
+            "selectors": [
+              "#isqnf"
+            ],
+            "style": {
+              "width": "250px",
+              "background": "linear-gradient(135deg, #4b3c82 0%, #5a3d91 100%)",
+              "color": "white",
+              "padding": "20px",
+              "overflow-y": "auto",
+              "display": "flex",
+              "flex-direction": "column"
+            }
+          },
+          {
+            "selectors": [
+              "#iffgi"
+            ],
+            "style": {
+              "margin-top": "0",
+              "color": "#333",
+              "font-size": "32px",
+              "margin-bottom": "10px"
+            }
+          },
+          {
+            "selectors": [
+              "#i2oab"
+            ],
+            "style": {
+              "color": "#666",
+              "margin-bottom": "30px"
+            }
+          },
+          {
+            "selectors": [
+              "#table-parkingplace-0"
+            ],
+            "style": {
+              "width": "100%",
+              "min-height": "400px"
+            }
+          },
+          {
+            "selectors": [
+              "#i9ra6"
+            ],
+            "style": {
+              "display": "inline-flex",
+              "align-items": "center",
+              "padding": "6px 14px",
+              "background": "linear-gradient(90deg, #2563eb 0%, #1e40af 100%)",
+              "color": "#fff",
+              "text-decoration": "none",
+              "border-radius": "4px",
+              "font-size": "13px",
+              "font-weight": "600",
+              "letter-spacing": "0.01em",
+              "cursor": "pointer",
+              "border": "none",
+              "box-shadow": "0 1px 4px rgba(37,99,235,0.10)",
+              "transition": "background 0.2s"
+            }
+          },
+          {
+            "selectors": [
+              "#i9tbg"
+            ],
+            "style": {
+              "margin-top": "20px",
+              "display": "flex",
+              "gap": "10px",
+              "flex-wrap": "wrap"
+            }
+          },
+          {
+            "selectors": [
+              "#ie9l8"
+            ],
+            "style": {
+              "flex": "1",
+              "padding": "40px",
+              "overflow-y": "auto",
+              "background": "#f5f5f5"
+            }
+          },
+          {
+            "selectors": [
+              "#ijbw3"
+            ],
+            "style": {
+              "display": "flex",
+              "height": "100vh",
+              "font-family": "Arial, sans-serif"
+            }
+          },
+          {
+            "selectors": [
+              "#ixz7h"
+            ],
+            "style": {
+              "margin-top": "0",
+              "font-size": "24px",
+              "margin-bottom": "30px",
+              "font-weight": "bold"
+            }
+          },
+          {
+            "selectors": [
+              "#i8aeh"
+            ],
+            "style": {
+              "color": "white",
+              "text-decoration": "none",
+              "padding": "10px 15px",
+              "display": "block",
+              "background": "transparent",
+              "border-radius": "4px",
+              "margin-bottom": "5px"
+            }
+          },
+          {
+            "selectors": [
+              "#ilvn9"
+            ],
+            "style": {
+              "color": "white",
+              "text-decoration": "none",
+              "padding": "10px 15px",
+              "display": "block",
+              "background": "rgba(255,255,255,0.2)",
+              "border-radius": "4px",
+              "margin-bottom": "5px"
+            }
+          },
+          {
+            "selectors": [
+              "#i06p5"
+            ],
+            "style": {
+              "display": "flex",
+              "flex-direction": "column",
+              "flex": "1"
+            }
+          },
+          {
+            "selectors": [
+              "#idpfh"
+            ],
+            "style": {
+              "margin-top": "auto",
+              "padding-top": "20px",
+              "border-top": "1px solid rgba(255,255,255,0.2)",
+              "font-size": "11px",
+              "opacity": "0.8",
+              "text-align": "center"
+            }
+          },
+          {
+            "selectors": [
+              "#ijz03"
+            ],
+            "style": {
+              "width": "250px",
+              "background": "linear-gradient(135deg, #4b3c82 0%, #5a3d91 100%)",
+              "color": "white",
+              "padding": "20px",
+              "overflow-y": "auto",
+              "display": "flex",
+              "flex-direction": "column"
+            }
+          },
+          {
+            "selectors": [
+              "#i5xjw"
+            ],
+            "style": {
+              "margin-top": "0",
+              "color": "#333",
+              "font-size": "32px",
+              "margin-bottom": "10px"
+            }
+          },
+          {
+            "selectors": [
+              "#iyt2h"
+            ],
+            "style": {
+              "color": "#666",
+              "margin-bottom": "30px"
+            }
+          },
+          {
+            "selectors": [
+              "#table-parkingavailability-1"
+            ],
+            "style": {
+              "width": "100%",
+              "min-height": "400px"
+            }
+          },
+          {
+            "selectors": [
+              "#iscfn"
+            ],
+            "style": {
+              "display": "inline-flex",
+              "align-items": "center",
+              "padding": "6px 14px",
+              "background": "linear-gradient(90deg, #2563eb 0%, #1e40af 100%)",
+              "color": "#fff",
+              "text-decoration": "none",
+              "border-radius": "4px",
+              "font-size": "13px",
+              "font-weight": "600",
+              "letter-spacing": "0.01em",
+              "cursor": "pointer",
+              "border": "none",
+              "box-shadow": "0 1px 4px rgba(37,99,235,0.10)",
+              "transition": "background 0.2s"
+            }
+          },
+          {
+            "selectors": [
+              "#ibho2"
+            ],
+            "style": {
+              "margin-top": "20px",
+              "display": "flex",
+              "gap": "10px",
+              "flex-wrap": "wrap"
+            }
+          },
+          {
+            "selectors": [
+              "#igte8"
+            ],
+            "style": {
+              "flex": "1",
+              "padding": "40px",
+              "overflow-y": "auto",
+              "background": "#f5f5f5"
+            }
+          },
+          {
+            "selectors": [
+              "#i78u7"
+            ],
+            "style": {
+              "display": "flex",
+              "height": "100vh",
+              "font-family": "Arial, sans-serif"
+            }
+          }
+        ],
+        "assets": [],
+        "symbols": [],
+        "version": "0.21.13"
+      },
+      "lastUpdate": "2026-04-24T11:54:15.816Z"
+    }
+  ]
+}
