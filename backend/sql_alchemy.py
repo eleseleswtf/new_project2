@@ -18,8 +18,8 @@ class Base(DeclarativeBase):
 # Tables definition for many-to-many relationships
 
 # Tables definition
-class ParkingAvailability(Base):
-    __tablename__ = "parkingavailability"
+class Garage(Base):
+    __tablename__ = "garage"
     id: Mapped_[int] = mapped_column(primary_key=True)
     availabilityId: Mapped_[str] = mapped_column(String_(100))
     checkedAt: Mapped_[dt_date] = mapped_column(Date_)
@@ -30,17 +30,17 @@ class ParkingPlace(Base):
     __tablename__ = "parkingplace"
     id: Mapped_[int] = mapped_column(primary_key=True)
     placeId: Mapped_[str] = mapped_column(String_(100))
-    isFree: Mapped_[bool] = mapped_column(Boolean_, default=True)
+    isFree: Mapped_[bool] = mapped_column(Boolean_)
     lastUpdated: Mapped_[dt_date] = mapped_column(Date_)
     locationDescription: Mapped_[Optional_[str]] = mapped_column(String_(100), nullable=True)
-    parkingavailability_id: Mapped_[int] = mapped_column(ForeignKey_("parkingavailability.id"))
+    hasPlaces_id: Mapped_[int] = mapped_column(ForeignKey_("garage.id"))
 
 
-#--- Relationships of the parkingavailability table
-ParkingAvailability.hasPlaces: Mapped_[List_["ParkingPlace"]] = relationship("ParkingPlace", back_populates="parkingavailability", foreign_keys=[ParkingPlace.parkingavailability_id])
+#--- Relationships of the garage table
+Garage.parkingplace: Mapped_[List_["ParkingPlace"]] = relationship("ParkingPlace", back_populates="hasPlaces", foreign_keys=[ParkingPlace.hasPlaces_id])
 
 #--- Relationships of the parkingplace table
-ParkingPlace.parkingavailability: Mapped_["ParkingAvailability"] = relationship("ParkingAvailability", back_populates="hasPlaces", foreign_keys=[ParkingPlace.parkingavailability_id])
+ParkingPlace.hasPlaces: Mapped_["Garage"] = relationship("Garage", back_populates="parkingplace", foreign_keys=[ParkingPlace.hasPlaces_id])
 
 # Database connection
 DATABASE_URL = "sqlite:///Class_Diagram.db"  # SQLite connection

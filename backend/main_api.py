@@ -45,9 +45,9 @@ app = FastAPI(
     redoc_url="/redoc",
     openapi_tags=[
         {"name": "System", "description": "System health and statistics"},
-        {"name": "ParkingAvailability", "description": "Operations for ParkingAvailability entities"},
-        {"name": "ParkingAvailability Relationships", "description": "Manage ParkingAvailability relationships"},
-        {"name": "ParkingAvailability Methods", "description": "Execute ParkingAvailability methods"},
+        {"name": "Garage", "description": "Operations for Garage entities"},
+        {"name": "Garage Relationships", "description": "Manage Garage relationships"},
+        {"name": "Garage Methods", "description": "Execute Garage methods"},
         {"name": "ParkingPlace", "description": "Operations for ParkingPlace entities"},
         {"name": "ParkingPlace Relationships", "description": "Manage ParkingPlace relationships"},
         {"name": "ParkingPlace Methods", "description": "Execute ParkingPlace methods"},
@@ -197,7 +197,7 @@ def health_check():
 def get_statistics(database: Session = Depends(get_db)):
     """Get database statistics for all entities"""
     stats = {}
-    stats["parkingavailability_count"] = database.query(ParkingAvailability).count()
+    stats["garage_count"] = database.query(Garage).count()
     stats["parkingplace_count"] = database.query(ParkingPlace).count()
     stats["total_entities"] = sum(stats.values())
     return stats
@@ -264,55 +264,55 @@ async def BAL_reduce(sequence:list, reduce_fn, aggregator) -> any:
 
 ############################################
 #
-#   ParkingAvailability functions
+#   Garage functions
 #
 ############################################
 
-@app.get("/parkingavailability/", response_model=None, tags=["ParkingAvailability"])
-def get_all_parkingavailability(detailed: bool = False, database: Session = Depends(get_db)) -> list:
+@app.get("/garage/", response_model=None, tags=["Garage"])
+def get_all_garage(detailed: bool = False, database: Session = Depends(get_db)) -> list:
     from sqlalchemy.orm import joinedload
 
     # Use detailed=true to get entities with eagerly loaded relationships (for tables with lookup columns)
     if detailed:
         # Eagerly load all relationships to avoid N+1 queries
-        query = database.query(ParkingAvailability)
-        parkingavailability_list = query.all()
+        query = database.query(Garage)
+        garage_list = query.all()
 
         # Serialize with relationships included
         result = []
-        for parkingavailability_item in parkingavailability_list:
-            item_dict = parkingavailability_item.__dict__.copy()
+        for garage_item in garage_list:
+            item_dict = garage_item.__dict__.copy()
             item_dict.pop('_sa_instance_state', None)
 
             # Add many-to-one relationships (foreign keys for lookup columns)
 
             # Add many-to-many and one-to-many relationship objects (full details)
-            parkingplace_list = database.query(ParkingPlace).filter(ParkingPlace.parkingavailability_id == parkingavailability_item.id).all()
-            item_dict['hasPlaces'] = []
+            parkingplace_list = database.query(ParkingPlace).filter(ParkingPlace.hasPlaces_id == garage_item.id).all()
+            item_dict['parkingplace'] = []
             for parkingplace_obj in parkingplace_list:
                 parkingplace_dict = parkingplace_obj.__dict__.copy()
                 parkingplace_dict.pop('_sa_instance_state', None)
-                item_dict['hasPlaces'].append(parkingplace_dict)
+                item_dict['parkingplace'].append(parkingplace_dict)
 
             result.append(item_dict)
         return result
     else:
         # Default: return flat entities (faster for charts/widgets without lookup columns)
-        return database.query(ParkingAvailability).all()
+        return database.query(Garage).all()
 
 
-@app.get("/parkingavailability/count/", response_model=None, tags=["ParkingAvailability"])
-def get_count_parkingavailability(database: Session = Depends(get_db)) -> dict:
-    """Get the total count of ParkingAvailability entities"""
-    count = database.query(ParkingAvailability).count()
+@app.get("/garage/count/", response_model=None, tags=["Garage"])
+def get_count_garage(database: Session = Depends(get_db)) -> dict:
+    """Get the total count of Garage entities"""
+    count = database.query(Garage).count()
     return {"count": count}
 
 
-@app.get("/parkingavailability/paginated/", response_model=None, tags=["ParkingAvailability"])
-def get_paginated_parkingavailability(skip: int = 0, limit: int = 100, detailed: bool = False, database: Session = Depends(get_db)) -> dict:
-    """Get paginated list of ParkingAvailability entities"""
-    total = database.query(ParkingAvailability).count()
-    parkingavailability_list = database.query(ParkingAvailability).offset(skip).limit(limit).all()
+@app.get("/garage/paginated/", response_model=None, tags=["Garage"])
+def get_paginated_garage(skip: int = 0, limit: int = 100, detailed: bool = False, database: Session = Depends(get_db)) -> dict:
+    """Get paginated list of Garage entities"""
+    total = database.query(Garage).count()
+    garage_list = database.query(Garage).offset(skip).limit(limit).all()
     # By default, return flat entities (for charts/widgets)
     # Use detailed=true to get entities with relationships
     if not detailed:
@@ -320,15 +320,15 @@ def get_paginated_parkingavailability(skip: int = 0, limit: int = 100, detailed:
             "total": total,
             "skip": skip,
             "limit": limit,
-            "data": parkingavailability_list
+            "data": garage_list
         }
 
     result = []
-    for parkingavailability_item in parkingavailability_list:
-        hasPlaces_ids = database.query(ParkingPlace.id).filter(ParkingPlace.parkingavailability_id == parkingavailability_item.id).all()
+    for garage_item in garage_list:
+        parkingplace_ids = database.query(ParkingPlace.id).filter(ParkingPlace.hasPlaces_id == garage_item.id).all()
         item_data = {
-            "parkingavailability": parkingavailability_item,
-            "hasPlaces_ids": [x[0] for x in hasPlaces_ids]        }
+            "garage": garage_item,
+            "parkingplace_ids": [x[0] for x in parkingplace_ids]        }
         result.append(item_data)
     return {
         "total": total,
@@ -338,68 +338,68 @@ def get_paginated_parkingavailability(skip: int = 0, limit: int = 100, detailed:
     }
 
 
-@app.get("/parkingavailability/search/", response_model=None, tags=["ParkingAvailability"])
-def search_parkingavailability(
+@app.get("/garage/search/", response_model=None, tags=["Garage"])
+def search_garage(
     database: Session = Depends(get_db)
 ) -> list:
-    """Search ParkingAvailability entities by attributes"""
-    query = database.query(ParkingAvailability)
+    """Search Garage entities by attributes"""
+    query = database.query(Garage)
 
 
     results = query.all()
     return results
 
 
-@app.get("/parkingavailability/{parkingavailability_id}/", response_model=None, tags=["ParkingAvailability"])
-async def get_parkingavailability(parkingavailability_id: int, database: Session = Depends(get_db)) -> ParkingAvailability:
-    db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == parkingavailability_id).first()
-    if db_parkingavailability is None:
-        raise HTTPException(status_code=404, detail="ParkingAvailability not found")
+@app.get("/garage/{garage_id}/", response_model=None, tags=["Garage"])
+async def get_garage(garage_id: int, database: Session = Depends(get_db)) -> Garage:
+    db_garage = database.query(Garage).filter(Garage.id == garage_id).first()
+    if db_garage is None:
+        raise HTTPException(status_code=404, detail="Garage not found")
 
-    hasPlaces_ids = database.query(ParkingPlace.id).filter(ParkingPlace.parkingavailability_id == db_parkingavailability.id).all()
+    parkingplace_ids = database.query(ParkingPlace.id).filter(ParkingPlace.hasPlaces_id == db_garage.id).all()
     response_data = {
-        "parkingavailability": db_parkingavailability,
-        "hasPlaces_ids": [x[0] for x in hasPlaces_ids]}
+        "garage": db_garage,
+        "parkingplace_ids": [x[0] for x in parkingplace_ids]}
     return response_data
 
 
 
-@app.post("/parkingavailability/", response_model=None, tags=["ParkingAvailability"])
-async def create_parkingavailability(parkingavailability_data: ParkingAvailabilityCreate, database: Session = Depends(get_db)) -> ParkingAvailability:
+@app.post("/garage/", response_model=None, tags=["Garage"])
+async def create_garage(garage_data: GarageCreate, database: Session = Depends(get_db)) -> Garage:
 
 
-    db_parkingavailability = ParkingAvailability(
-        anyPlaceFree=parkingavailability_data.anyPlaceFree,        checkedAt=parkingavailability_data.checkedAt,        bothPlacesFree=parkingavailability_data.bothPlacesFree,        availabilityId=parkingavailability_data.availabilityId        )
+    db_garage = Garage(
+        availabilityId=garage_data.availabilityId,        anyPlaceFree=garage_data.anyPlaceFree,        bothPlacesFree=garage_data.bothPlacesFree,        checkedAt=garage_data.checkedAt        )
 
-    database.add(db_parkingavailability)
+    database.add(db_garage)
     database.commit()
-    database.refresh(db_parkingavailability)
+    database.refresh(db_garage)
 
-    if parkingavailability_data.hasPlaces:
+    if garage_data.parkingplace:
         # Validate that all ParkingPlace IDs exist
-        for parkingplace_id in parkingavailability_data.hasPlaces:
+        for parkingplace_id in garage_data.parkingplace:
             db_parkingplace = database.query(ParkingPlace).filter(ParkingPlace.id == parkingplace_id).first()
             if not db_parkingplace:
                 raise HTTPException(status_code=400, detail=f"ParkingPlace with id {parkingplace_id} not found")
 
         # Update the related entities with the new foreign key
-        database.query(ParkingPlace).filter(ParkingPlace.id.in_(parkingavailability_data.hasPlaces)).update(
-            {ParkingPlace.parkingavailability_id: db_parkingavailability.id}, synchronize_session=False
+        database.query(ParkingPlace).filter(ParkingPlace.id.in_(garage_data.parkingplace)).update(
+            {ParkingPlace.hasPlaces_id: db_garage.id}, synchronize_session=False
         )
         database.commit()
 
 
 
-    hasPlaces_ids = database.query(ParkingPlace.id).filter(ParkingPlace.parkingavailability_id == db_parkingavailability.id).all()
+    parkingplace_ids = database.query(ParkingPlace.id).filter(ParkingPlace.hasPlaces_id == db_garage.id).all()
     response_data = {
-        "parkingavailability": db_parkingavailability,
-        "hasPlaces_ids": [x[0] for x in hasPlaces_ids]    }
+        "garage": db_garage,
+        "parkingplace_ids": [x[0] for x in parkingplace_ids]    }
     return response_data
 
 
-@app.post("/parkingavailability/bulk/", response_model=None, tags=["ParkingAvailability"])
-async def bulk_create_parkingavailability(items: list[ParkingAvailabilityCreate], database: Session = Depends(get_db)) -> dict:
-    """Create multiple ParkingAvailability entities at once"""
+@app.post("/garage/bulk/", response_model=None, tags=["Garage"])
+async def bulk_create_garage(items: list[GarageCreate], database: Session = Depends(get_db)) -> dict:
+    """Create multiple Garage entities at once"""
     created_items = []
     errors = []
 
@@ -407,11 +407,11 @@ async def bulk_create_parkingavailability(items: list[ParkingAvailabilityCreate]
         try:
             # Basic validation for each item
 
-            db_parkingavailability = ParkingAvailability(
-                anyPlaceFree=item_data.anyPlaceFree,                checkedAt=item_data.checkedAt,                bothPlacesFree=item_data.bothPlacesFree,                availabilityId=item_data.availabilityId            )
-            database.add(db_parkingavailability)
+            db_garage = Garage(
+                availabilityId=item_data.availabilityId,                anyPlaceFree=item_data.anyPlaceFree,                bothPlacesFree=item_data.bothPlacesFree,                checkedAt=item_data.checkedAt            )
+            database.add(db_garage)
             database.flush()  # Get ID without committing
-            created_items.append(db_parkingavailability.id)
+            created_items.append(db_garage.id)
         except Exception as e:
             errors.append({"index": idx, "error": str(e)})
 
@@ -423,20 +423,20 @@ async def bulk_create_parkingavailability(items: list[ParkingAvailabilityCreate]
     return {
         "created_count": len(created_items),
         "created_ids": created_items,
-        "message": f"Successfully created {len(created_items)} ParkingAvailability entities"
+        "message": f"Successfully created {len(created_items)} Garage entities"
     }
 
 
-@app.delete("/parkingavailability/bulk/", response_model=None, tags=["ParkingAvailability"])
-async def bulk_delete_parkingavailability(ids: list[int], database: Session = Depends(get_db)) -> dict:
-    """Delete multiple ParkingAvailability entities at once"""
+@app.delete("/garage/bulk/", response_model=None, tags=["Garage"])
+async def bulk_delete_garage(ids: list[int], database: Session = Depends(get_db)) -> dict:
+    """Delete multiple Garage entities at once"""
     deleted_count = 0
     not_found = []
 
     for item_id in ids:
-        db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == item_id).first()
-        if db_parkingavailability:
-            database.delete(db_parkingavailability)
+        db_garage = database.query(Garage).filter(Garage.id == item_id).first()
+        if db_garage:
+            database.delete(db_garage)
             deleted_count += 1
         else:
             not_found.append(item_id)
@@ -446,88 +446,88 @@ async def bulk_delete_parkingavailability(ids: list[int], database: Session = De
     return {
         "deleted_count": deleted_count,
         "not_found": not_found,
-        "message": f"Successfully deleted {deleted_count} ParkingAvailability entities"
+        "message": f"Successfully deleted {deleted_count} Garage entities"
     }
 
-@app.put("/parkingavailability/{parkingavailability_id}/", response_model=None, tags=["ParkingAvailability"])
-async def update_parkingavailability(parkingavailability_id: int, parkingavailability_data: ParkingAvailabilityCreate, database: Session = Depends(get_db)) -> ParkingAvailability:
-    db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == parkingavailability_id).first()
-    if db_parkingavailability is None:
-        raise HTTPException(status_code=404, detail="ParkingAvailability not found")
+@app.put("/garage/{garage_id}/", response_model=None, tags=["Garage"])
+async def update_garage(garage_id: int, garage_data: GarageCreate, database: Session = Depends(get_db)) -> Garage:
+    db_garage = database.query(Garage).filter(Garage.id == garage_id).first()
+    if db_garage is None:
+        raise HTTPException(status_code=404, detail="Garage not found")
 
-    setattr(db_parkingavailability, 'anyPlaceFree', parkingavailability_data.anyPlaceFree)
-    setattr(db_parkingavailability, 'checkedAt', parkingavailability_data.checkedAt)
-    setattr(db_parkingavailability, 'bothPlacesFree', parkingavailability_data.bothPlacesFree)
-    setattr(db_parkingavailability, 'availabilityId', parkingavailability_data.availabilityId)
-    if parkingavailability_data.hasPlaces is not None:
+    setattr(db_garage, 'availabilityId', garage_data.availabilityId)
+    setattr(db_garage, 'anyPlaceFree', garage_data.anyPlaceFree)
+    setattr(db_garage, 'bothPlacesFree', garage_data.bothPlacesFree)
+    setattr(db_garage, 'checkedAt', garage_data.checkedAt)
+    if garage_data.parkingplace is not None:
         # Clear all existing relationships (set foreign key to NULL)
-        database.query(ParkingPlace).filter(ParkingPlace.parkingavailability_id == db_parkingavailability.id).update(
-            {ParkingPlace.parkingavailability_id: None}, synchronize_session=False
+        database.query(ParkingPlace).filter(ParkingPlace.hasPlaces_id == db_garage.id).update(
+            {ParkingPlace.hasPlaces_id: None}, synchronize_session=False
         )
 
         # Set new relationships if list is not empty
-        if parkingavailability_data.hasPlaces:
+        if garage_data.parkingplace:
             # Validate that all IDs exist
-            for parkingplace_id in parkingavailability_data.hasPlaces:
+            for parkingplace_id in garage_data.parkingplace:
                 db_parkingplace = database.query(ParkingPlace).filter(ParkingPlace.id == parkingplace_id).first()
                 if not db_parkingplace:
                     raise HTTPException(status_code=400, detail=f"ParkingPlace with id {parkingplace_id} not found")
 
             # Update the related entities with the new foreign key
-            database.query(ParkingPlace).filter(ParkingPlace.id.in_(parkingavailability_data.hasPlaces)).update(
-                {ParkingPlace.parkingavailability_id: db_parkingavailability.id}, synchronize_session=False
+            database.query(ParkingPlace).filter(ParkingPlace.id.in_(garage_data.parkingplace)).update(
+                {ParkingPlace.hasPlaces_id: db_garage.id}, synchronize_session=False
             )
     database.commit()
-    database.refresh(db_parkingavailability)
+    database.refresh(db_garage)
 
-    hasPlaces_ids = database.query(ParkingPlace.id).filter(ParkingPlace.parkingavailability_id == db_parkingavailability.id).all()
+    parkingplace_ids = database.query(ParkingPlace.id).filter(ParkingPlace.hasPlaces_id == db_garage.id).all()
     response_data = {
-        "parkingavailability": db_parkingavailability,
-        "hasPlaces_ids": [x[0] for x in hasPlaces_ids]    }
+        "garage": db_garage,
+        "parkingplace_ids": [x[0] for x in parkingplace_ids]    }
     return response_data
 
 
-@app.delete("/parkingavailability/{parkingavailability_id}/", response_model=None, tags=["ParkingAvailability"])
-async def delete_parkingavailability(parkingavailability_id: int, database: Session = Depends(get_db)):
-    db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == parkingavailability_id).first()
-    if db_parkingavailability is None:
-        raise HTTPException(status_code=404, detail="ParkingAvailability not found")
-    database.delete(db_parkingavailability)
+@app.delete("/garage/{garage_id}/", response_model=None, tags=["Garage"])
+async def delete_garage(garage_id: int, database: Session = Depends(get_db)):
+    db_garage = database.query(Garage).filter(Garage.id == garage_id).first()
+    if db_garage is None:
+        raise HTTPException(status_code=404, detail="Garage not found")
+    database.delete(db_garage)
     database.commit()
-    return db_parkingavailability
+    return db_garage
 
 
-@app.get("/parkingavailability/{parkingavailability_id}/hasPlaces/", response_model=None, tags=["ParkingAvailability Relationships"])
-async def get_hasPlaces_of_parkingavailability(parkingavailability_id: int, database: Session = Depends(get_db)):
-    """Get all ParkingPlace entities related to this ParkingAvailability through hasPlaces"""
-    db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == parkingavailability_id).first()
-    if db_parkingavailability is None:
-        raise HTTPException(status_code=404, detail="ParkingAvailability not found")
+@app.get("/garage/{garage_id}/parkingplace/", response_model=None, tags=["Garage Relationships"])
+async def get_parkingplace_of_garage(garage_id: int, database: Session = Depends(get_db)):
+    """Get all ParkingPlace entities related to this Garage through parkingplace"""
+    db_garage = database.query(Garage).filter(Garage.id == garage_id).first()
+    if db_garage is None:
+        raise HTTPException(status_code=404, detail="Garage not found")
 
-    hasPlaces_list = database.query(ParkingPlace).filter(ParkingPlace.parkingavailability_id == parkingavailability_id).all()
+    parkingplace_list = database.query(ParkingPlace).filter(ParkingPlace.hasPlaces_id == garage_id).all()
 
     return {
-        "parkingavailability_id": parkingavailability_id,
-        "hasPlaces_count": len(hasPlaces_list),
-        "hasPlaces": hasPlaces_list
+        "garage_id": garage_id,
+        "parkingplace_count": len(parkingplace_list),
+        "parkingplace": parkingplace_list
     }
 
 
 
 ############################################
-#   ParkingAvailability Method Endpoints
+#   Garage Method Endpoints
 ############################################
 
 
 
 
-@app.post("/parkingavailability/methods/refreshAvailabilityStatus/", response_model=None, tags=["ParkingAvailability Methods"])
-async def parkingavailability_refreshAvailabilityStatus(
+@app.post("/garage/methods/refreshAvailabilityStatus/", response_model=None, tags=["Garage Methods"])
+async def garage_refreshAvailabilityStatus(
     database: Session = Depends(get_db)
 ):
     """
-    Execute the refreshAvailabilityStatus class method on ParkingAvailability.
-    This method operates on all ParkingAvailability entities or performs class-level operations.
+    Execute the refreshAvailabilityStatus class method on Garage.
+    This method operates on all Garage entities or performs class-level operations.
     """
     try:
         # Capture stdout to include print outputs in the response
@@ -559,7 +559,7 @@ async def parkingavailability_refreshAvailabilityStatus(
             result = {k: v for k, v in result.__dict__.items() if not k.startswith('_')}
 
         return {
-            "class": "ParkingAvailability",
+            "class": "Garage",
             "method": "refreshAvailabilityStatus",
             "status": "executed",
             "result": result,
@@ -586,7 +586,7 @@ def get_all_parkingplace(detailed: bool = False, database: Session = Depends(get
     if detailed:
         # Eagerly load all relationships to avoid N+1 queries
         query = database.query(ParkingPlace)
-        query = query.options(joinedload(ParkingPlace.parkingavailability))
+        query = query.options(joinedload(ParkingPlace.hasPlaces))
         parkingplace_list = query.all()
 
         # Serialize with relationships included
@@ -596,13 +596,13 @@ def get_all_parkingplace(detailed: bool = False, database: Session = Depends(get
             item_dict.pop('_sa_instance_state', None)
 
             # Add many-to-one relationships (foreign keys for lookup columns)
-            if parkingplace_item.parkingavailability:
-                related_obj = parkingplace_item.parkingavailability
+            if parkingplace_item.hasPlaces:
+                related_obj = parkingplace_item.hasPlaces
                 related_dict = related_obj.__dict__.copy()
                 related_dict.pop('_sa_instance_state', None)
-                item_dict['parkingavailability'] = related_dict
+                item_dict['hasPlaces'] = related_dict
             else:
-                item_dict['parkingavailability'] = None
+                item_dict['hasPlaces'] = None
 
 
             result.append(item_dict)
@@ -660,15 +660,15 @@ async def get_parkingplace(parkingplace_id: int, database: Session = Depends(get
 @app.post("/parkingplace/", response_model=None, tags=["ParkingPlace"])
 async def create_parkingplace(parkingplace_data: ParkingPlaceCreate, database: Session = Depends(get_db)) -> ParkingPlace:
 
-    if parkingplace_data.parkingavailability is not None:
-        db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == parkingplace_data.parkingavailability).first()
-        if not db_parkingavailability:
-            raise HTTPException(status_code=400, detail="ParkingAvailability not found")
+    if parkingplace_data.hasPlaces is not None:
+        db_hasPlaces = database.query(Garage).filter(Garage.id == parkingplace_data.hasPlaces).first()
+        if not db_hasPlaces:
+            raise HTTPException(status_code=400, detail="Garage not found")
     else:
-        raise HTTPException(status_code=400, detail="ParkingAvailability ID is required")
+        raise HTTPException(status_code=400, detail="Garage ID is required")
 
     db_parkingplace = ParkingPlace(
-        placeId=parkingplace_data.placeId,        lastUpdated=parkingplace_data.lastUpdated,        isFree=parkingplace_data.isFree,        locationDescription=parkingplace_data.locationDescription,        parkingavailability_id=parkingplace_data.parkingavailability        )
+        isFree=parkingplace_data.isFree,        lastUpdated=parkingplace_data.lastUpdated,        placeId=parkingplace_data.placeId,        locationDescription=parkingplace_data.locationDescription,        hasPlaces_id=parkingplace_data.hasPlaces        )
 
     database.add(db_parkingplace)
     database.commit()
@@ -689,11 +689,11 @@ async def bulk_create_parkingplace(items: list[ParkingPlaceCreate], database: Se
     for idx, item_data in enumerate(items):
         try:
             # Basic validation for each item
-            if not item_data.parkingavailability:
-                raise ValueError("ParkingAvailability ID is required")
+            if not item_data.hasPlaces:
+                raise ValueError("Garage ID is required")
 
             db_parkingplace = ParkingPlace(
-                placeId=item_data.placeId,                lastUpdated=item_data.lastUpdated,                isFree=item_data.isFree,                locationDescription=item_data.locationDescription,                parkingavailability_id=item_data.parkingavailability            )
+                isFree=item_data.isFree,                lastUpdated=item_data.lastUpdated,                placeId=item_data.placeId,                locationDescription=item_data.locationDescription,                hasPlaces_id=item_data.hasPlaces            )
             database.add(db_parkingplace)
             database.flush()  # Get ID without committing
             created_items.append(db_parkingplace.id)
@@ -740,15 +740,15 @@ async def update_parkingplace(parkingplace_id: int, parkingplace_data: ParkingPl
     if db_parkingplace is None:
         raise HTTPException(status_code=404, detail="ParkingPlace not found")
 
-    setattr(db_parkingplace, 'placeId', parkingplace_data.placeId)
-    setattr(db_parkingplace, 'lastUpdated', parkingplace_data.lastUpdated)
     setattr(db_parkingplace, 'isFree', parkingplace_data.isFree)
+    setattr(db_parkingplace, 'lastUpdated', parkingplace_data.lastUpdated)
+    setattr(db_parkingplace, 'placeId', parkingplace_data.placeId)
     setattr(db_parkingplace, 'locationDescription', parkingplace_data.locationDescription)
-    if parkingplace_data.parkingavailability is not None:
-        db_parkingavailability = database.query(ParkingAvailability).filter(ParkingAvailability.id == parkingplace_data.parkingavailability).first()
-        if not db_parkingavailability:
-            raise HTTPException(status_code=400, detail="ParkingAvailability not found")
-        setattr(db_parkingplace, 'parkingavailability_id', parkingplace_data.parkingavailability)
+    if parkingplace_data.hasPlaces is not None:
+        db_hasPlaces = database.query(Garage).filter(Garage.id == parkingplace_data.hasPlaces).first()
+        if not db_hasPlaces:
+            raise HTTPException(status_code=400, detail="Garage not found")
+        setattr(db_parkingplace, 'hasPlaces_id', parkingplace_data.hasPlaces)
     database.commit()
     database.refresh(db_parkingplace)
 

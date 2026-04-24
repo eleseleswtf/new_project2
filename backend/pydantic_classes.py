@@ -11,19 +11,19 @@ from pydantic import BaseModel, field_validator
 ############################################
 # Classes are defined here
 ############################################
-class ParkingAvailabilityCreate(BaseModel):
-    anyPlaceFree: bool
-    checkedAt: date
-    bothPlacesFree: bool
+class GarageCreate(BaseModel):
     availabilityId: str
-    hasPlaces: Optional[List[int]] = None  # 1:N Relationship
+    anyPlaceFree: bool
+    bothPlacesFree: bool
+    checkedAt: date
+    parkingplace: Optional[List[int]] = None  # 1:N Relationship
 
 
 class ParkingPlaceCreate(BaseModel):
-    placeId: str
+    isFree: bool
     lastUpdated: date
-    isFree: bool = true
+    placeId: str
     locationDescription: Optional[str] = None
-    parkingavailability: int  # N:1 Relationship (mandatory)
+    hasPlaces: int  # N:1 Relationship (mandatory)
 
 

@@ -78,8 +78,7 @@
             "isOptional": false,
             "isDerived": false,
             "isId": false,
-            "isExternalId": false,
-            "defaultValue": "true"
+            "isExternalId": false
           },
           "attr_mf2zk4eai_mocu1r36_2f3": {
             "id": "attr_mf2zk4eai_mocu1r36_2f3",
@@ -149,7 +148,7 @@
           },
           "class_lkd9lx6es_mocu1r37_168": {
             "id": "class_lkd9lx6es_mocu1r37_168",
-            "name": "ParkingAvailability",
+            "name": "Garage",
             "type": "Class",
             "owner": null,
             "bounds": {
@@ -289,22 +288,22 @@
               "x": -162.82500457763672,
               "y": -147,
               "width": 92.72500514984131,
-              "height": 220
+              "height": 229.60000038146973
             },
             "path": [
               {
                 "x": 78.82500457763672,
-                "y": 0
+                "y": 220
               },
               {
                 "x": 78.82500457763672,
-                "y": 220
+                "y": 0
               }
             ],
             "source": {
-              "direction": "Down",
-              "element": "class_lkd9lx6es_mocu1r37_168",
-              "multiplicity": "1",
+              "direction": "Up",
+              "element": "class_58seo5nao_mocu1r36_gwj",
+              "multiplicity": "2",
               "role": "",
               "bounds": {
                 "x": 0,
@@ -314,9 +313,9 @@
               }
             },
             "target": {
-              "direction": "Up",
-              "element": "class_58seo5nao_mocu1r36_gwj",
-              "multiplicity": "2",
+              "direction": "Down",
+              "element": "class_lkd9lx6es_mocu1r37_168",
+              "multiplicity": "1",
               "role": "hasPlaces",
               "bounds": {
                 "x": 0,
@@ -330,7 +329,7 @@
         },
         "assessments": {}
       },
-      "lastUpdate": "2026-04-24T11:55:52.769Z"
+      "lastUpdate": "2026-04-24T12:19:04.713Z"
     }
   ],
   "GUINoCodeDiagram": [

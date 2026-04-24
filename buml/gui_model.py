@@ -13,39 +13,39 @@ from besser.BUML.metamodel.structural import (
 
 # Classes
 ParkingPlace = Class(name="ParkingPlace")
-ParkingAvailability = Class(name="ParkingAvailability")
+Garage = Class(name="Garage")
 
 # ParkingPlace class attributes and methods
 ParkingPlace_placeId: Property = Property(name="placeId", type=StringType, visibility="private")
-ParkingPlace_isFree: Property = Property(name="isFree", type=BooleanType, visibility="private", default_value="true")
+ParkingPlace_isFree: Property = Property(name="isFree", type=BooleanType, visibility="private")
 ParkingPlace_lastUpdated: Property = Property(name="lastUpdated", type=DateType, visibility="private")
 ParkingPlace_locationDescription: Property = Property(name="locationDescription", type=StringType, visibility="private", is_optional=True)
 ParkingPlace_m_updateAvailability: Method = Method(name="updateAvailability", parameters={Parameter(name='freeStatus', type=BooleanType)}, implementation_type=MethodImplementationType.NONE)
 ParkingPlace.attributes={ParkingPlace_isFree, ParkingPlace_lastUpdated, ParkingPlace_locationDescription, ParkingPlace_placeId}
 ParkingPlace.methods={ParkingPlace_m_updateAvailability}
 
-# ParkingAvailability class attributes and methods
-ParkingAvailability_availabilityId: Property = Property(name="availabilityId", type=StringType, visibility="private")
-ParkingAvailability_checkedAt: Property = Property(name="checkedAt", type=DateType, visibility="private")
-ParkingAvailability_anyPlaceFree: Property = Property(name="anyPlaceFree", type=BooleanType, visibility="private", is_derived=True)
-ParkingAvailability_bothPlacesFree: Property = Property(name="bothPlacesFree", type=BooleanType, visibility="private", is_derived=True)
-ParkingAvailability_m_refreshAvailabilityStatus: Method = Method(name="refreshAvailabilityStatus", parameters={}, implementation_type=MethodImplementationType.NONE)
-ParkingAvailability.attributes={ParkingAvailability_anyPlaceFree, ParkingAvailability_availabilityId, ParkingAvailability_bothPlacesFree, ParkingAvailability_checkedAt}
-ParkingAvailability.methods={ParkingAvailability_m_refreshAvailabilityStatus}
+# Garage class attributes and methods
+Garage_availabilityId: Property = Property(name="availabilityId", type=StringType, visibility="private")
+Garage_checkedAt: Property = Property(name="checkedAt", type=DateType, visibility="private")
+Garage_anyPlaceFree: Property = Property(name="anyPlaceFree", type=BooleanType, visibility="private", is_derived=True)
+Garage_bothPlacesFree: Property = Property(name="bothPlacesFree", type=BooleanType, visibility="private", is_derived=True)
+Garage_m_refreshAvailabilityStatus: Method = Method(name="refreshAvailabilityStatus", parameters={}, implementation_type=MethodImplementationType.NONE)
+Garage.attributes={Garage_anyPlaceFree, Garage_availabilityId, Garage_bothPlacesFree, Garage_checkedAt}
+Garage.methods={Garage_m_refreshAvailabilityStatus}
 
 # Relationships
 hasPlaces: BinaryAssociation = BinaryAssociation(
     name="hasPlaces",
     ends={
-        Property(name="parkingavailability", type=ParkingAvailability, multiplicity=Multiplicity(1, 1)),
-        Property(name="hasPlaces", type=ParkingPlace, multiplicity=Multiplicity(2, 2))
+        Property(name="parkingplace", type=ParkingPlace, multiplicity=Multiplicity(2, 2)),
+        Property(name="hasPlaces", type=Garage, multiplicity=Multiplicity(1, 1))
     }
 )
 
 # Domain Model
 domain_model = DomainModel(
     name="Class_Diagram",
-    types={ParkingPlace, ParkingAvailability},
+    types={ParkingPlace, Garage},
     associations={hasPlaces},
     generalizations={},
     metadata=None
@@ -335,12 +335,10 @@ iyt2h = Text(
     display_order=1,
     custom_attributes={"id": "iyt2h"}
 )
-table_parkingavailability_1_col_0 = FieldColumn(label="AvailabilityId", field=ParkingAvailability_availabilityId)
-table_parkingavailability_1_col_1 = FieldColumn(label="CheckedAt", field=ParkingAvailability_checkedAt)
-table_parkingavailability_1_col_2 = FieldColumn(label="AnyPlaceFree", field=ParkingAvailability_anyPlaceFree)
-table_parkingavailability_1_col_3 = FieldColumn(label="BothPlacesFree", field=ParkingAvailability_bothPlacesFree)
-table_parkingavailability_1_col_4_path = next(end for assoc in domain_model.associations for end in assoc.ends if end.name == "hasPlaces")
-table_parkingavailability_1_col_4 = LookupColumn(label="HasPlaces", path=table_parkingavailability_1_col_4_path, field=ParkingPlace_placeId)
+table_parkingavailability_1_col_0 = FieldColumn(label="AvailabilityId", field=Garage_availabilityId)
+table_parkingavailability_1_col_1 = FieldColumn(label="CheckedAt", field=Garage_checkedAt)
+table_parkingavailability_1_col_2 = FieldColumn(label="AnyPlaceFree", field=Garage_anyPlaceFree)
+table_parkingavailability_1_col_3 = FieldColumn(label="BothPlacesFree", field=Garage_bothPlacesFree)
 table_parkingavailability_1 = Table(
     name="table_parkingavailability_1",
     title="ParkingAvailability List",
@@ -350,7 +348,7 @@ table_parkingavailability_1 = Table(
     show_pagination=True,
     rows_per_page=5,
     action_buttons=True,
-    columns=[table_parkingavailability_1_col_0, table_parkingavailability_1_col_1, table_parkingavailability_1_col_2, table_parkingavailability_1_col_3, table_parkingavailability_1_col_4],
+    columns=[table_parkingavailability_1_col_0, table_parkingavailability_1_col_1, table_parkingavailability_1_col_2, table_parkingavailability_1_col_3],
     styling=Styling(size=Size(width="100%", min_height="400px", unit_size=UnitSize.PERCENTAGE), color=Color(color_palette="default", primary_color="#2c3e50")),
     component_id="table-parkingavailability-1",
     display_order=2,
@@ -360,11 +358,11 @@ table_parkingavailability_1 = Table(
 domain_model_ref = globals().get('domain_model') or next((v for k, v in globals().items() if k.startswith('domain_model') and hasattr(v, 'get_class_by_name')), None)
 table_parkingavailability_1_binding_domain = None
 if domain_model_ref is not None:
-    table_parkingavailability_1_binding_domain = domain_model_ref.get_class_by_name("ParkingAvailability")
+    table_parkingavailability_1_binding_domain = domain_model_ref.get_class_by_name("Garage")
 if table_parkingavailability_1_binding_domain:
-    table_parkingavailability_1_binding = DataBinding(domain_concept=table_parkingavailability_1_binding_domain, name="ParkingAvailabilityDataBinding")
+    table_parkingavailability_1_binding = DataBinding(domain_concept=table_parkingavailability_1_binding_domain, name="GarageDataBinding")
 else:
-    # Domain class 'ParkingAvailability' not resolved; data binding skipped.
+    # Domain class 'Garage' not resolved; data binding skipped.
     table_parkingavailability_1_binding = None
 if table_parkingavailability_1_binding:
     table_parkingavailability_1.data_binding = table_parkingavailability_1_binding
@@ -374,7 +372,7 @@ iscfn = Button(
     label="refreshAvailabilityStatus",
     buttonType=ButtonType.CustomizableButton,
     actionType=ButtonActionType.RunMethod,
-    method_btn=ParkingAvailability_m_refreshAvailabilityStatus,
+    method_btn=Garage_m_refreshAvailabilityStatus,
     instance_source="table-parkingavailability-1",
     is_instance_method=True,
     confirmation_message="Are you sure?",
@@ -383,7 +381,7 @@ iscfn = Button(
     tag_name="button",
     display_order=0,
     css_classes=["action-button-component"],
-    custom_attributes={"type": "button", "data-button-label": "refreshAvailabilityStatus", "data-action-type": "run-method", "data-method": "method_3xm4bkznq_mocu1r37_fbn", "data-instance-source": "table-parkingavailability-1", "id": "iscfn", "data-confirmation": "false", "data-confirmation-message": "Are you sure?", "button-label": "refreshAvailabilityStatus", "method-name": "refreshAvailabilityStatus", "method-class": "ParkingAvailability", "endpoint": "/parkingavailability/{parkingavailability_id}/methods/refreshAvailabilityStatus/", "is-instance-method": "true", "instance-source": "table-parkingavailability-1"}
+    custom_attributes={"type": "button", "data-button-label": "refreshAvailabilityStatus", "data-action-type": "run-method", "data-method": "method_3xm4bkznq_mocu1r37_fbn", "data-instance-source": "table-parkingavailability-1", "id": "iscfn", "data-confirmation": "false", "data-confirmation-message": "Are you sure?", "button-label": "refreshAvailabilityStatus", "method-name": "refreshAvailabilityStatus", "method-class": "Garage", "endpoint": "/garage/{garage_id}/methods/refreshAvailabilityStatus/", "is-instance-method": "true", "instance-source": "table-parkingavailability-1"}
 )
 ibho2 = ViewContainer(
     name="ibho2",
